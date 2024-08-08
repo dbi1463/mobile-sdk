@@ -17,7 +17,7 @@ public class SimpleInitiationCallback implements TenMaxInitiationCallback<TenMax
     @Override
     public void initiated(TenMaxAdSpace space, Throwable error) {
         if (error != null) {
-            Toast.makeText(context, String.format("failed to initiate, due to %s", error.getMessage()), 1).show();
+            Toast.makeText(context, String.format("failed to initiate, due to %s", error.getMessage()), Toast.LENGTH_SHORT).show();
         }
     }
 }

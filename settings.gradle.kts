@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TenMax Mobile SDK"
+rootProject.name = "TenMax Mobile SDK Demo"
 include(":sdkdemo")
