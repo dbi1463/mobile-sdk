@@ -8,7 +8,7 @@ Before using the SDK, please contact TenMax (contact@tenmax.io) to
 
 - register you app bundle ID
 - obtain you app publisher ID
-- an read-only access token to download the SDK from GitHub Packages
+- a user name and an read-only access token to import the SDK from GitHub Packages
 
 The first two values would be used to initiate the SDK.
 
@@ -18,25 +18,52 @@ Follow the steps to use the TenMax Mobile SDK:
 
 ### Install SDK
 
-Add the following lines into the `repositories` section in your project gradle setting  (`<project-root>/settings.gradle`).
+There are two ways to install the SDK, you can choose one to meet your case.
+
+#### Import from GitHub Packages
+
+Add the following lines into the `repositories` section in your project gradle setting  (`<project-root>/<your-app>/build.gradle.kts`).
 
 ```gradle
 maven {
-    url "https://maven.pkg.github.com/tenmax/*"
+    url = uri("https://maven.pkg.github.com/dbi1463/mobile-sdk")
     credentials {
-        username "temax-public"
-        password {token-obtain-from-rrerequisite}
+        username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+        password = project.findProperty("gpr.token") as String? ?: System.getenv("GITHUB_TOKEN")
     }
 }
 ```
 
-Then, add the library to your project dependencies (`<project-root>/app/build.gradle`):
+Add the `gpr.user` and `gpr.token` (obtained from [Prerequisites](#prerequisites)) into `local.propeerties` and make sure this file not committed to your repository. Please pass these two values with the secret environment variables (`GITHUB_ACTOR` and `GITHUB_TOKEN`) on the CI server.
+
+```
+gpr.user=xxx
+gpr.token=xxx
+```
+
+Then, add the library to your project dependencies:
 
 ```gradle
 dependencies {
-    implementation "com.github.tenmax:mobile-sdk-android:1.0.0"
+    implementation("io.tenmax:mobile-sdk:1.0.0")
 }
 ```
+
+#### Import AAR
+
+You can download the AAR file from the release and put the AAR file into `<project-root>/<your-app>/libs`. However, the SDK needs other libraries (GSON, Retrofit, and AD identifier) to work, thus, please add the SDK and required libraries together:
+
+```gradle
+dependencies {
+    implementation(files("$projectDir/libs/adkit.aar"))
+    implementation(libs.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.play.services.ads.identifier)
+}
+```
+
+In this way, you do not need the user name and token, but you need to download the new AAR file if the SDK is updated. You can see the setting in the [feat/build-with-aar](https://github.com/dbi1463/mobile-sdk/tree/feat/build-with-aar) branch.
 
 ### SDK Configuration
 
