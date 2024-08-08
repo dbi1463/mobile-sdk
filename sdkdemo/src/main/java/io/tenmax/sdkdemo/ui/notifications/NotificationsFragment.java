@@ -25,7 +25,6 @@ public class NotificationsFragment extends Fragment {
 
     private TenMaxAd topBannerAd;
     private TenMaxAd bottomBannerAd;
-    private TenMaxAd duplicatedAd;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         NotificationsViewModel notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
@@ -35,7 +34,6 @@ public class NotificationsFragment extends Fragment {
         SimpleAdSessionListener listener = new SimpleAdSessionListener(this.getContext());
         SimpleInitiationCallback callback = new SimpleInitiationCallback(this.getContext());
         this.topBannerAd = bannerAd("d2721bd68b344b1b", this.getActivity(), this.binding.topBanner1, top, listener, callback);
-        this.duplicatedAd = bannerAd("d2721bd68b344b1b", this.getActivity(), this.binding.topBanner2, top, listener, callback);
         this.bottomBannerAd = bannerAd("05a60ba0ed4849a8", this.getActivity(), this.binding.bottomBanner1, bottom, listener, callback);
         return root;
     }
@@ -45,7 +43,6 @@ public class NotificationsFragment extends Fragment {
         super.onResume();
         this.topBannerAd.show();
         this.bottomBannerAd.show();
-        this.duplicatedAd.show();
     }
 
     @Override
@@ -53,7 +50,6 @@ public class NotificationsFragment extends Fragment {
         super.onDestroyView();
         binding = null;
         cleanAd(this.topBannerAd);
-        cleanAd(this.duplicatedAd);
         cleanAd(this.bottomBannerAd);
     }
 }

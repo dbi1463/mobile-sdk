@@ -18,17 +18,17 @@ public class SimpleAdSessionListener implements TenMaxAdSessionListener {
 
     @Override
     public void adViewableEventSent(TenMaxAdSession session) {
-        Toast.makeText(this.context, "viewable event sent", 1).show();
+        Toast.makeText(this.context, "viewable event sent", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void adLoadingTimeout(TenMaxAdSession session) {
-        Toast.makeText(this.context, "AD loading timeout", 1).show();
+        Toast.makeText(this.context, "AD loading timeout", Toast.LENGTH_SHORT).show();
         info("AD (spaceId: %s) loading timeout (sessionId: %s)", session.getSpace().getSpaceId(), session.getId());
     }
 
     @Override
     public void adNotFound(TenMaxAdSession session) {
-        Toast.makeText(this.context, "received adNoFill event", 1).show();
+        Toast.makeText(this.context, "received adNoFill event", Toast.LENGTH_SHORT).show();
     }
 }

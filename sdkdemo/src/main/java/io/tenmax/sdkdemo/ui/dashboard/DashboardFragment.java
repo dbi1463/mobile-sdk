@@ -23,7 +23,6 @@ public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
 
     private TenMaxAd inlineAd;
-    private TenMaxAd duplicatedAd;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
@@ -32,7 +31,6 @@ public class DashboardFragment extends Fragment {
         SimpleAdSessionListener listener = new SimpleAdSessionListener(this.getContext());
         SimpleInitiationCallback callback = new SimpleInitiationCallback(this.getContext());
         this.inlineAd = inlineAd("f95fc92d4a824a41", this.getActivity(), this.binding.inlineAd, listener, callback);
-        this.duplicatedAd = inlineAd("f95fc92d4a824a41", this.getActivity(), this.binding.duplicatedInlineAd);
         return root;
     }
 
@@ -40,7 +38,6 @@ public class DashboardFragment extends Fragment {
     public void onResume() {
         super.onResume();
         this.inlineAd.show();
-        this.duplicatedAd.show();
     }
 
     @Override
@@ -48,6 +45,5 @@ public class DashboardFragment extends Fragment {
         super.onDestroyView();
         binding = null;
         cleanAd(this.inlineAd);
-        cleanAd(this.duplicatedAd);
     }
 }
